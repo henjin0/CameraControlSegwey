@@ -1,6 +1,6 @@
 clear
 
-% ‹·‰æ‘œ‚ğæ“¾‚·‚é
+% è¦–å·®ç”»åƒã‚’å–å¾—ã™ã‚‹
 %nI1 = imread('scene_left.png');
 %nI2 = imread('scene_right.png');
 nI1 = imread('im2b.png');
@@ -11,12 +11,12 @@ imshow(nI1);
 I1 = rgb2gray(nI1);
 I2 = rgb2gray(nI2);
 
-% ‰æ‘œ‚ğ”äŠr‚·‚éB
+% ç”»åƒã‚’æ¯”è¼ƒã™ã‚‹ã€‚
 figure(2)
 stAnag = stereoAnaglyph(I1,I2);
 imshow(stAnag);
 
-disparityRange = [-6,42];%‹·‚ÌƒMƒƒƒbƒv‚Ì‘å‚«‚³‚ÉŠÖ‚·‚éƒŒƒ“ƒW 
+disparityRange = [-6,42];%è¦–å·®ã®ã‚®ãƒ£ãƒƒãƒ—ã®å¤§ãã•ã«é–¢ã™ã‚‹ãƒ¬ãƒ³ã‚¸ 
 disparityMap = disparity(I1,I2,...
     'BlockSize',15,'DisparityRange',disparityRange);
 

@@ -1,21 +1,21 @@
-%% “¹˜H‰æ‘œ‚©‚çÔü‚ğŒŸ’m‚µA˜H–Ê—Ìˆæ‚ğ•\¦‚·‚éB
+%% é“è·¯ç”»åƒã‹ã‚‰è»Šç·šã‚’æ¤œçŸ¥ã—ã€è·¯é¢é ˜åŸŸã‚’è¡¨ç¤ºã™ã‚‹ã€‚
 clear
 close all
 
-% “¹˜H‰æ‘œ‚ğ“Ç‚İ‚Ş
-%img= imread('‰©FÀü‚ÌÔü.jpg');
-%img = imread('“¹˜H.jpg');
-%img = imread('ñ“s‚–é.jpg');
-%img = imread('ƒgƒ“ƒlƒ‹“Iñ“s‚.jpg');
-%img = imread('^—‚µ‚Ä‚Í‚¢‚¯‚È‚¢‚â‚Â.jpg');
-%img = imread('^—‚µ‚Ä‚Í‚¢‚¯‚È‚¢‚â‚Â2.jpg');
-img = imread('­.jpg');
+% é“è·¯ç”»åƒã‚’èª­ã¿è¾¼ã‚€
+%img= imread('é»„è‰²å®Ÿç·šã®è»Šç·š.jpg');
+%img = imread('é“è·¯.jpg');
+%img = imread('é¦–éƒ½é«˜å¤œ.jpg');
+%img = imread('ãƒˆãƒ³ãƒãƒ«çš„é¦–éƒ½é«˜.jpg');
+%img = imread('çœŸä¼¼ã—ã¦ã¯ã„ã‘ãªã„ã‚„ã¤.jpg');
+%img = imread('çœŸä¼¼ã—ã¦ã¯ã„ã‘ãªã„ã‚„ã¤2.jpg');
+img = imread('é¹¿.jpg');
 
-% F‚Ì•\¦
+% è‰²ã®è¡¨ç¤º
 figure(1)
 imshow(img);
 
-% ³‹K‰»
+% æ­£è¦åŒ–
 figure(2)
 img(:,:,1) = (img(:,:,1)-min(img(:,:,1)))./(max(img(:,:,1))-min(img(:,:,1)))*256;
 %img(:,:,2) = (img(:,:,2)-min(img(:,:,2)))./(max(img(:,:,2))-min(img(:,:,2)))*256;
@@ -23,7 +23,7 @@ img(:,:,2) = 0;
 img(:,:,3) = (img(:,:,3)-min(img(:,:,3)))./(max(img(:,:,3))-min(img(:,:,3)))*256;
 imshow(img)
 
-% ‹P“x‚ğ‰º‚°‚é
+% è¼åº¦ã‚’ä¸‹ã’ã‚‹
 %figure(3)
 %img(img<200) = 0;
 %imshow(img)
@@ -32,13 +32,13 @@ figure(4)
 dimg = diff(img);
 imshow(dimg);
 
-% ‚Æ‚è‚ ‚¦‚¸ƒOƒŒ[ƒXƒP[ƒ‹‚É‚µ‚Ä‚İ‚é
+% ã¨ã‚Šã‚ãˆãšã‚°ãƒ¬ãƒ¼ã‚¹ã‚±ãƒ¼ãƒ«ã«ã—ã¦ã¿ã‚‹
 grayImg = rgb2gray(dimg);
 figure(5)
 img(img<200) = 0;
 imshow(grayImg);
 
-% ‘å’Ã‚Ì“ñ’l‰»‚ÌŒ´—‚ğg‚Á‚ÄƒoƒCƒiƒŠƒCƒ[ƒW‚ğì¬
+% å¤§æ´¥ã®äºŒå€¤åŒ–ã®åŸç†ã‚’ä½¿ã£ã¦ãƒã‚¤ãƒŠãƒªã‚¤ãƒ¡ãƒ¼ã‚¸ã‚’ä½œæˆ
 %BW = imbinarize(grayImg,'adaptive','ForegroundPolarity','dark','Sensitivity',0.6);
 %BW = grayImg > 0.5;
 BW = edge(grayImg,'canny');
@@ -48,14 +48,14 @@ imshow(BW);
 theta1 = [0:-0.5:-60];
 theta2 = [0:0.5:60];
 
-% ƒnƒt•ÏŠ·
+% ãƒãƒ•å¤‰æ›
 %[H,T,R] = hough(BW);
 [H,T,R] = hough(BW,'Theta',theta1);
 %figure(4)
 %imshow(imadjust(rescale(H)),'XData',T,'YData',R,...
 %      'InitialMagnification','fit');
 
-% ƒs[ƒN“±o
+% ãƒ”ãƒ¼ã‚¯å°å‡º
 figure(7)
 P = houghpeaks(H,1);
 imshow(H,[],'XData',T,'YData',R,'InitialMagnification','fit');
@@ -63,9 +63,9 @@ xlabel('\theta'), ylabel('\rho');
 axis on, axis normal, hold on;
 scatter(T(P(:,2)),R(P(:,1)));
 
-% üƒf[ƒ^æ“¾
+% ç·šãƒ‡ãƒ¼ã‚¿å–å¾—
 lines = houghlines(BW,T,R,P);
-len = length(lines);% ƒf[ƒ^’·‚ğ“±‚­
+len = length(lines);% ãƒ‡ãƒ¼ã‚¿é•·ã‚’å°ã
 figure(6)
 hold on
 for i = 1:1:len
@@ -83,7 +83,7 @@ hold on
 for i = 1:1:len
    
     xy = [lines(i).point1; lines(i).point2];
-    %ŒX‚«‚ğ‹‚ß‚é
+    %å‚¾ãã‚’æ±‚ã‚ã‚‹
     a = (xy(2,2) - xy(1,2)) / (xy(2,1) - xy(1,1));
     b = (xy(1,2)-a*xy(1,1));
     

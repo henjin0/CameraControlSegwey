@@ -1,31 +1,31 @@
 function [a,b,xyStruct] = RoadArea(img,theta,peakNum)
 
-% ³‹K‰»
+% æ­£è¦åŒ–
 img(:,:,1) = (img(:,:,1)-min(img(:,:,1)))./(max(img(:,:,1))-min(img(:,:,1)))*256;
 %img(:,:,2) = (img(:,:,2)-min(img(:,:,2)))./(max(img(:,:,2))-min(img(:,:,2)))*256;
 img(:,:,2) = 0;
 img(:,:,3) = (img(:,:,3)-min(img(:,:,3)))./(max(img(:,:,3))-min(img(:,:,3)))*256;
 
-% ·•ª‚ğæ‚é
+% å·®åˆ†ã‚’å–ã‚‹
 dimg = diff(img);
 
-% ƒOƒŒ[ƒXƒP[ƒ‹‰»
+% ã‚°ãƒ¬ãƒ¼ã‚¹ã‚±ãƒ¼ãƒ«åŒ–
 grayImg = rgb2gray(dimg);
-% ‹P“x‚Ì¬‚³‚¢‚à‚Ì‚ğœ‹‚·‚é
+% è¼åº¦ã®å°ã•ã„ã‚‚ã®ã‚’é™¤å»ã™ã‚‹
 img(img<200) = 0;
 
-% ‘å’Ã‚Ì“ñ’l‰»‚ÌŒ´—‚ğg‚Á‚ÄƒoƒCƒiƒŠƒCƒ[ƒW‚ğì¬
+% å¤§æ´¥ã®äºŒå€¤åŒ–ã®åŸç†ã‚’ä½¿ã£ã¦ãƒã‚¤ãƒŠãƒªã‚¤ãƒ¡ãƒ¼ã‚¸ã‚’ä½œæˆ
 BW = edge(grayImg,'canny');
 
-% ƒnƒt•ÏŠ·
+% ãƒãƒ•å¤‰æ›
 [H,T,R] = hough(BW,'Theta',theta);
 
-% ƒs[ƒN“±o
+% ãƒ”ãƒ¼ã‚¯å°å‡º
 P = houghpeaks(H,peakNum);
 
-% üƒf[ƒ^æ“¾
+% ç·šãƒ‡ãƒ¼ã‚¿å–å¾—
 lines = houghlines(BW,T,R,P);
-len = length(lines);% ƒf[ƒ^’·‚ğ“±‚­
+len = length(lines);% ãƒ‡ãƒ¼ã‚¿é•·ã‚’å°ã
 
 a = [];
 b = [];
@@ -33,7 +33,7 @@ xyStruct = struct();
 for i = 1:1:len
     
     xyStruct(i).xy = [lines(i).point1; lines(i).point2];
-    %ŒX‚«‚ğ‹‚ß‚é
+    %å‚¾ãã‚’æ±‚ã‚ã‚‹
     a = [a; (xyStruct(i).xy(2,2) - xyStruct(i).xy(1,2))...
         / (xyStruct(i).xy(2,1) - xyStruct(i).xy(1,1))];
     b = [b; (xyStruct(i).xy(1,2)-a(i)*xyStruct(i).xy(1,1))];
